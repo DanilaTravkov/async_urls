@@ -1,0 +1,9 @@
+[submodule "backend/async_jobs"]
+	path = backend/async_jobs
+	url = https://github.com/DanilaTravkov/async_urls-backend.git
+	branch = main
+[submodule "frontend/async_jobs"]
+	path = frontend/async_jobs
+	url = https://github.com/DanilaTravkov/async_urls-frontend.git
+	branch = main
+

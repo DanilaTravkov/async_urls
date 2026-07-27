@@ -1,0 +1,6 @@
+.pnpm-store/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
