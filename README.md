@@ -9,53 +9,67 @@ submodules:
 
 ## Клонирование
 
-```powershell
+```
 git clone --recurse-submodules https://github.com/DanilaTravkov/async_urls.git
 cd async_urls
 ```
 
 Если репозиторий уже был клонирован без submodules:
 
-```powershell
+```
 git submodule update --init --recursive
 ```
 
 ## Запуск
 
+Для запуска потребуются:
+
+- Node.js `>=20.19` или `>=22.12`
+- pnpm
+- Docker с поддержкой Docker Compose
+
 Установите зависимости отдельно в каждом приложении:
 
-```powershell
-pnpm.cmd --dir backend/async_jobs install
-pnpm.cmd --dir frontend/async_jobs install
+```
+pnpm --dir backend/async_jobs install
+pnpm --dir frontend/async_jobs install
 ```
 
 Запустите Redis:
 
-```powershell
+```
 docker compose -f backend/async_jobs/docker-compose.yml up -d redis
 ```
 
 Запустите backend:
 
-```powershell
-pnpm.cmd --dir backend/async_jobs run start:dev
+```
+pnpm --dir backend/async_jobs run start:dev
 ```
 
 В другом терминале запустите frontend:
 
-```powershell
-pnpm.cmd --dir frontend/async_jobs run dev
+```
+pnpm --dir frontend/async_jobs run dev
 ```
 
-Backend по умолчанию доступен на `http://localhost:3000`, frontend — по адресу,
-который выведет Vite.
+При стандартном локальном запуске создавать файлы `.env` не требуется:
+приложения используют предусмотренные в конфигурации значения по умолчанию.
+Доступные переменные окружения перечислены в файлах `.env.example` каждого
+приложения.
+
+После запуска доступны:
+
+- frontend — `http://localhost:5173`
+- backend — `http://localhost:3000`
+- Swagger UI — `http://localhost:3000/docs`
 
 ## Работа с submodules
 
 Изменения следует коммитить и отправлять из соответствующего дочернего
-репозитория. После этого umbrella-репозиторий фиксирует новый commit submodule:
+репозитория. После этого umbrella репозиторий фиксирует новый commit submodule:
 
-```powershell
+```
 git add backend/async_jobs
 git commit -m "chore: update backend"
 git push
@@ -63,8 +77,19 @@ git push
 
 Обновить оба submodules до ветки `main` можно так:
 
-```powershell
+```
 git submodule update --remote --merge
 git add backend/async_jobs frontend/async_jobs
 git commit -m "chore: update submodules"
 ```
+
+Функциональность, которая была разработана с помощью использования ИИ:
+- Создание тестов
+- Автокомиты и review кода
+- Документация
+
+Без использования ИИ:
+
+- Архитектура
+- Выбор технологий
+- Компоненты на бекенде и фронтенде (код взят из открытых источников и официальных документаций или написан вручную)
