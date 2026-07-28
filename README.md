@@ -22,41 +22,13 @@ git submodule update --init --recursive
 
 ## Запуск
 
-Для запуска потребуются:
+Для запуска потребуется Docker с поддержкой Docker Compose.
 
-- Node.js `>=20.19` или `>=22.12`
-- pnpm
-- Docker с поддержкой Docker Compose
-
-Установите зависимости отдельно в каждом приложении:
+Запустите frontend, backend и Redis одной командой из корня репозитория:
 
 ```
-pnpm --dir backend/async_jobs install
-pnpm --dir frontend/async_jobs install
+docker compose up --build
 ```
-
-Запустите Redis:
-
-```
-docker compose -f backend/async_jobs/docker-compose.yml up -d redis
-```
-
-Запустите backend:
-
-```
-pnpm --dir backend/async_jobs run start:dev
-```
-
-В другом терминале запустите frontend:
-
-```
-pnpm --dir frontend/async_jobs run dev
-```
-
-При стандартном локальном запуске создавать файлы `.env` не требуется:
-приложения используют предусмотренные в конфигурации значения по умолчанию.
-Доступные переменные окружения перечислены в файлах `.env.example` каждого
-приложения.
 
 После запуска доступны:
 
@@ -64,23 +36,10 @@ pnpm --dir frontend/async_jobs run dev
 - backend — `http://localhost:3000`
 - Swagger UI — `http://localhost:3000/docs`
 
-## Работа с submodules
-
-Изменения следует коммитить и отправлять из соответствующего дочернего
-репозитория. После этого umbrella репозиторий фиксирует новый commit submodule:
+Остановить контейнеры:
 
 ```
-git add backend/async_jobs
-git commit -m "chore: update backend"
-git push
-```
-
-Обновить оба submodules до ветки `main` можно так:
-
-```
-git submodule update --remote --merge
-git add backend/async_jobs frontend/async_jobs
-git commit -m "chore: update submodules"
+docker compose down
 ```
 
 Функциональность, которая была разработана с помощью использования ИИ:
